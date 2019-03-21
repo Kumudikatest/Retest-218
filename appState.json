@@ -22,7 +22,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "Retest-218/lambda.js",
-        "code": "exports.handler = function (event, context, callback) {\n    \n    callback(null, { \"message\": \"Successfully executed\" });\n}",
+        "code": "let AWS = require('aws-sdk');\nconst s3 = new AWS.S3();\n\nexports.handler = function (event, context, callback) {\n    //jjbj\n    s3.listObjects({\n        'Bucket': 'cloud9-ktest',\n        'MaxKeys': 10,\n        'Prefix': ''\n    }).promise()\n        .then(data => {\n            console.log(data);           // successful response\n            /*\n            data = {\n             Contents: [\n                {\n                   ETag: \"\\\\\"70ee1738b6b21e2c8a43f3a5ab0eee71\\\\\"\",\n                   Key: \"example1.jpg\",\n                   LastModified: <Date Representation>,\n                   Owner: {\n                      DisplayName: \"myname\",\n                      ID: \"12345example25102679df27bb0ae12b3f85be6f290b936c4393484be31bebcc\"\n                   },\n                   Size: 11,\n                   StorageClass: \"STANDARD\"\n                },\n                {...}\n            */\n        })\n        .catch(err => {\n            console.log(err, err.stack); // an error occurred\n        });\n\n    callback(null, { \"message\": \"Successfully executed\" });\n}",
         "triggers": [],
         "config": {
           "runtime": "nodejs8.10",
@@ -30,6 +30,20 @@
           "timeout": 60,
           "memory": 128,
           "layers": []
+        },
+        "testCases": {
+          "b6c329f5-3c42-4531-85a0-2e9407236846": {
+            "id": "b6c329f5-3c42-4531-85a0-2e9407236846",
+            "name": "Unnamed event",
+            "functionId": "4bb48a23-a073-4d20-964c-eb9d7ca6b9eb",
+            "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
+          },
+          "3f9d903c-2220-4c1a-88d2-fb39d9addce8": {
+            "id": "3f9d903c-2220-4c1a-88d2-fb39d9addce8",
+            "name": "Unnamed event",
+            "functionId": "4bb48a23-a073-4d20-964c-eb9d7ca6b9eb",
+            "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
+          }
         }
       }
     },
@@ -39,7 +53,20 @@
       "4bb48a23-a073-4d20-964c-eb9d7ca6b9eb"
     ],
     "currentFileId": "4bb48a23-a073-4d20-964c-eb9d7ca6b9eb",
-    "resources": {},
+    "resources": {
+      "s3cloud9Ktest": {
+        "name": "s3cloud9Ktest",
+        "type": "S3",
+        "config": {
+          "mode": 1,
+          "bucket": {
+            "region": "ap-southeast-2",
+            "name": "cloud9-ktest"
+          }
+        },
+        "globallyEditable": false
+      }
+    },
     "customTemplate": {
       "dialect": null,
       "definitions": {}
@@ -72,7 +99,7 @@
     "projectRegion": "ap-southeast-2",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1553146626621
+    "lastSave": 1553147392362
   },
   "VCS_STATE": {
     "provider": "GitHub",
