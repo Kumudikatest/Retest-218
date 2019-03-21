@@ -1,0 +1,97 @@
+{
+  "EDITOR_STATE": {
+    "allProjectFiles": {
+      "a9db8fa6-496b-4bb4-907b-64a5d2946012": {
+        "id": "a9db8fa6-496b-4bb4-907b-64a5d2946012",
+        "parent": null,
+        "name": "Retest-218",
+        "type": "DIRECTORY",
+        "isDirectory": true,
+        "children": [
+          "4bb48a23-a073-4d20-964c-eb9d7ca6b9eb"
+        ],
+        "isRemovable": false,
+        "filePath": "Retest-218"
+      },
+      "4bb48a23-a073-4d20-964c-eb9d7ca6b9eb": {
+        "id": "4bb48a23-a073-4d20-964c-eb9d7ca6b9eb",
+        "parent": "a9db8fa6-496b-4bb4-907b-64a5d2946012",
+        "name": "lambda.js",
+        "type": "LAMBDA_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Retest-218/lambda.js",
+        "code": "let AWS = require('aws-sdk');\nconst s3 = new AWS.S3();\n\nexports.handler = function (event, context, callback) {\n    s3.listObjects({\n        'Bucket': 'cloud9-ktest',\n        'MaxKeys': 10,\n        'Prefix': ''\n    }).promise()\n        .then(data => {\n            console.log(data);           // successful response\n            /*\n            data = {\n             Contents: [\n                {\n                   ETag: \"\\\\\"70ee1738b6b21e2c8a43f3a5ab0eee71\\\\\"\",\n                   Key: \"example1.jpg\",\n                   LastModified: <Date Representation>,\n                   Owner: {\n                      DisplayName: \"myname\",\n                      ID: \"12345example25102679df27bb0ae12b3f85be6f290b936c4393484be31bebcc\"\n                   },\n                   Size: 11,\n                   StorageClass: \"STANDARD\"\n                },\n                {...}\n            */\n        })\n        .catch(err => {\n            console.log(err, err.stack); // an error occurred\n        });\n\n    callback(null, { \"message\": \"Successfully executed\" });\n}",
+        "triggers": [],
+        "config": {
+          "runtime": "nodejs8.10",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        }
+      }
+    },
+    "deletedFiles": [],
+    "rootNode": "a9db8fa6-496b-4bb4-907b-64a5d2946012",
+    "openFiles": [
+      "4bb48a23-a073-4d20-964c-eb9d7ca6b9eb"
+    ],
+    "currentFileId": "4bb48a23-a073-4d20-964c-eb9d7ca6b9eb",
+    "resources": {
+      "s3cloud9Ktest": {
+        "name": "s3cloud9Ktest",
+        "type": "S3",
+        "config": {
+          "mode": 1,
+          "bucket": {
+            "region": "ap-southeast-2",
+            "name": "cloud9-ktest"
+          }
+        },
+        "globallyEditable": false
+      }
+    },
+    "customTemplate": {
+      "dialect": null,
+      "definitions": {}
+    },
+    "envVariables": [
+      {
+        "lambdaId": "all",
+        "varKey": "SIGMA_AWS_ACC_ID",
+        "varValue": null,
+        "shouldPersist": false,
+        "displayOnly": false,
+        "editable": false
+      }
+    ],
+    "packageJSON": {
+      "dependencies": {
+        "aws-sdk": {
+          "name": "aws-sdk",
+          "version": "2.176.0",
+          "dev": true,
+          "notRemovable": false
+        }
+      }
+    }
+  },
+  "PROJECT_META": {
+    "projectName": "Retest-218",
+    "projectDescription": "test quick deploy",
+    "projectVersion": "1.0.0",
+    "projectRegion": "ap-southeast-2",
+    "platform": "AWS",
+    "platformRegions": {},
+    "lastSave": 1553146245913
+  },
+  "VCS_STATE": {
+    "provider": "GitHub",
+    "repo": {
+      "name": "Retest-218",
+      "url": "https://github.com/Kumudikatest/Retest-218"
+    }
+  }
+}
